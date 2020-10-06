@@ -1,9 +1,14 @@
 package com.example.quizapp_kotlin.ui.list
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizapp_kotlin.R
 import com.example.quizapp_kotlin.data.Quiz
+import com.example.quizapp_kotlin.ui.add.AddActivity
+import kotlinx.android.synthetic.main.activity_list.*
 
 class ListActivity : AppCompatActivity() {
 
@@ -19,5 +24,16 @@ class ListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
+
+        floatingActionButton.setOnClickListener {
+            val intent = Intent(this, AddActivity::class.java)
+            startActivityForResult(intent, NEW_STATE_REQUEST_CODE)
+        }
+
+        listViewModel = ViewModelProvider(this).get(ListViewModel::class.java)
+        val recyclerView = recyclerView2
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
     }
 }

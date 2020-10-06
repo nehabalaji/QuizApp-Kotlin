@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/stateTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="State"
@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.056" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/capitalTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Capital"
@@ -28,6 +28,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/stateTV"
         app:layout_constraintVertical_bias="0.015" />
 </androidx.constraintlayout.widget.ConstraintLayout>
