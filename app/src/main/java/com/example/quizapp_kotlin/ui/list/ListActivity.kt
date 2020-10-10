@@ -81,7 +81,6 @@ class ListActivity(dragDirs: Int) : AppCompatActivity() {
                 listViewModel.deleteState(quiz)
                 snackbar.show()
             }
-
         })
 
         itemTouchHelper.attachToRecyclerView(recyclerView)
