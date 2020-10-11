@@ -17,7 +17,7 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_list.*
 
-class ListActivity(dragDirs: Int) : AppCompatActivity() {
+class ListActivity : AppCompatActivity() {
 
     val EXTRA_STATE_NAME = "extra_state_name_to_be_updated"
     val EXTRA_CAPITAL_NAME = "extra_capital_name_to_be_updated"
