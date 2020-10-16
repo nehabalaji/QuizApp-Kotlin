@@ -7,7 +7,11 @@
         android:title="Daily Notifications"
         android:summary="Turn on to receive daily notifications"/>
 
-
-
+    <ListPreference
+        android:title="Sort By"
+        android:entries="@array/sorting_method_names"
+        android:entryValues="@array/sorting_method_names_values"
+        android:defaultValue="ID"
+        android:key="sort_order"/>
 
 </PreferenceScreen>
