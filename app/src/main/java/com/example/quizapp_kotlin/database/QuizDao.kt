@@ -23,7 +23,7 @@ interface QuizDao {
     fun getAllStates(supportSQLiteQuery: SupportSQLiteQuery): DataSource.Factory<Int, Quiz>
 
     @Query("SELECT * FROM StateAndCapital ORDER BY RANDOM() LIMIT 4")
-    fun getQuizState(): List<Quiz>
+    fun getQuizStates(): List<Quiz>
 
     @Query("SELECT * FROM StateAndCapital ORDER BY RANDOM() LIMIT 1")
     fun getRandomState(): Quiz

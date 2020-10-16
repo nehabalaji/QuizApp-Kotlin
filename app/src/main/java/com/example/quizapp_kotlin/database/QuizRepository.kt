@@ -1,11 +1,16 @@
 package com.example.quizapp_kotlin.database
 
 import android.app.Application
+import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import androidx.sqlite.db.SimpleSQLiteQuery
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.example.quizapp_kotlin.data.Quiz
+import java.util.concurrent.Callable
 import java.util.concurrent.Executors
+import java.util.concurrent.Future
 
 class QuizRepository (application: Application){
     private val quizDao: QuizDao
@@ -49,6 +54,27 @@ class QuizRepository (application: Application){
     }
 
     fun getAllStates(): LiveData<PagedList<Quiz>>{
-        return LivePagedListBuilder(quizDao.getAllStates(), 10).build()
+        return LivePagedListBuilder(quizDao.getAllStates(), 15).build()
+    }
+
+    fun getAllStates(sortBy: String): LiveData<PagedList<Quiz>>{
+        return LivePagedListBuilder(quizDao.getAllStates(constructQuery(sortBy)), 15).build()
+    }
+
+    private fun constructQuery(sortBy: String): SupportSQLiteQuery{
+        val query = "SELECT * FROM StateAndCapital ORDER BY "+sortBy+" ASC";
+        return SimpleSQLiteQuery(query)
+    }
+
+    @WorkerThread
+    fun getRandomState(): Quiz{
+        return quizDao.getRandomState()
+    }
+
+    fun getQuizStates(): Future<List<Quiz>>{
+        val callable: Callable<List<Quiz>> = Callable {
+            return@Callable quizDao.getQuizStates()
+        }
+        return executorService.submit(callable)
     }
 }
