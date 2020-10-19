@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.quizapp_kotlin.data.Quiz
 import java.util.concurrent.Executors
 
-@Database(entities = [Quiz::class], version = 1, exportSchema = false)
+@Database(entities = [Quiz::class], version = 2, exportSchema = false)
 abstract class QuizDatabase: RoomDatabase() {
 
     abstract val dao: QuizDao

@@ -1,11 +1,13 @@
 package com.example.quizapp_kotlin.ui.list
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +26,7 @@ class ListActivity : AppCompatActivity() {
     val EXTRA_STATE_ID = "extra_state_id_to_be_updated"
     val UPDATE_STATE_REQUEST_CODE = 1
     val NEW_STATE_REQUEST_CODE = 2
+    private lateinit var sharedPreferences: SharedPreferences
 
     lateinit var listViewModel: ListViewModel
     lateinit var quiz: Quiz
@@ -38,6 +41,13 @@ class ListActivity : AppCompatActivity() {
         }
 
         listViewModel = ViewModelProvider(this).get(ListViewModel::class.java)
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val s: String? = sharedPreferences.getString("sort_order", "ID")
+        if (s!=null){
+            listViewModel.changeSortOrder(s)
+        }
+
         val recyclerView = recyclerView2
 
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -83,8 +93,11 @@ class ListActivity : AppCompatActivity() {
             }
         })
 
+        sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
+
         itemTouchHelper.attachToRecyclerView(recyclerView)
         listPagingAdapter.setItemClickListener(clickListener)
+
     }
 
     fun launchUpdateActivity(currentState: Quiz){
@@ -93,5 +106,19 @@ class ListActivity : AppCompatActivity() {
         intent.putExtra(EXTRA_STATE_NAME, currentState.stateName)
         intent.putExtra(EXTRA_CAPITAL_NAME, currentState.capitalName)
         startActivityForResult(intent, UPDATE_STATE_REQUEST_CODE)
+    }
+
+    private var listener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, s ->
+        if (s.equals("sort_order")){
+            val string =  sharedPreferences.getString(s, "stateID")
+            if (string!=null){
+                listViewModel.changeSortOrder(string)
+            }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(listener)
     }
 }

@@ -16,7 +16,7 @@ data class Quiz(
     @ColumnInfo(name = "CapitalName")
     var capitalName: String,
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "ID")
     var id: Long = 0L
 ): Parcelable
