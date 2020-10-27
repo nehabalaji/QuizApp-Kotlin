@@ -16,6 +16,10 @@ class QuizView(context: Context, attributeSet: AttributeSet) : LinearLayout(cont
     private var correctOptionID: Int? = null
     private lateinit var optionsClickListener: OptionsClickListener
 
+    init {
+        initRadios()
+    }
+
     interface OptionsClickListener{
         fun onClick(result: Boolean)
     }
