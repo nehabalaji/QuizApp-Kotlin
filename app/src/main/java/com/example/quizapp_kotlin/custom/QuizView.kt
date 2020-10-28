@@ -33,10 +33,10 @@ class QuizView(context: Context, attributeSet: AttributeSet) : LinearLayout(cont
         options.id = View.generateViewId()
     }
 
-    fun setData(quiz: List<Quiz>){
+    fun setData(quiz: List<Quiz>, value: Int){
         val random = Random(System.currentTimeMillis())
 
-        val correctOption = random.nextInt(4)
+        val correctOption = random.nextInt(value)
         val correctState = quiz[correctOption]
 
         val questionTV = TextView(context)
@@ -59,7 +59,7 @@ class QuizView(context: Context, attributeSet: AttributeSet) : LinearLayout(cont
 
         var i=0
         var j=0
-        while (i<4 && j<4){
+        while (i<value && j<value){
             if (i==correctOption){
                 radioButtons[i].id = View.generateViewId()
                 radioButtons[i].text = correctState.capitalName

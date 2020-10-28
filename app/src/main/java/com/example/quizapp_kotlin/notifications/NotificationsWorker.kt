@@ -10,10 +10,12 @@ import com.example.quizapp_kotlin.database.QuizRepository
 class NotificationsWorker(@NonNull context: Context, @NonNull workerParameters: WorkerParameters): Worker(context.applicationContext, workerParameters) {
 
     private val quizRepo: QuizRepository = QuizRepository.getRepository(context.applicationContext as Application)!!
+    private val notifications:Notifications = Notifications()
 
 
     override fun doWork(): Result {
        var quiz = quizRepo.getRandomState()
+        notifications.getDailyNotifications(applicationContext, quiz)
         return Result.success()
     }
 }

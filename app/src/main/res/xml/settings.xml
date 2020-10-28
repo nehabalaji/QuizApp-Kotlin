@@ -14,4 +14,11 @@
         android:defaultValue="ID"
         android:key="sort_order"/>
 
+    <ListPreference
+        android:title="Number of Options"
+        android:entryValues="@array/no_of_options_values"
+        android:entries="@array/no_of_options"
+        android:defaultValue="four"
+        android:key="no_of_options"/>
+
 </PreferenceScreen>

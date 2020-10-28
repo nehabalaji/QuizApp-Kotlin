@@ -71,10 +71,7 @@ class QuizRepository (application: Application){
         return quizDao.getRandomState()
     }
 
-    fun getQuizStates(): Future<List<Quiz>>{
-        val callable: Callable<List<Quiz>> = Callable {
-            return@Callable quizDao.getQuizStates()
-        }
-        return executorService.submit(callable)
+    fun getQuizStates(value: Int): LiveData<List<Quiz>>{
+       return quizDao.getQuizStates(value)
     }
 }

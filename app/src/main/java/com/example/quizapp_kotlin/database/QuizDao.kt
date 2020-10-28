@@ -1,5 +1,6 @@
 package com.example.quizapp_kotlin.database
 
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
@@ -22,8 +23,8 @@ interface QuizDao {
     @RawQuery(observedEntities = [Quiz::class])
     fun getAllStates(supportSQLiteQuery: SupportSQLiteQuery): DataSource.Factory<Int, Quiz>
 
-    @Query("SELECT * FROM StateAndCapital ORDER BY RANDOM() LIMIT 4")
-    fun getQuizStates(): List<Quiz>
+    @Query("SELECT * FROM StateAndCapital ORDER BY RANDOM() LIMIT :value")
+    fun getQuizStates(value: Int): LiveData<List<Quiz>>
 
     @Query("SELECT * FROM StateAndCapital ORDER BY RANDOM() LIMIT 1")
     fun getRandomState(): Quiz
