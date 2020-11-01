@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         quizView = findViewById(R.id.quizView)
 
         quizViewModel.states.observe(this, Observer {
-            if (it.size==4||it.size==3){
+            if (it.size==4 || it.size==3){
                 quizView?.setData(it, value)
             }else{
                 Toast.makeText(this,"Add more states",Toast.LENGTH_SHORT).show()
@@ -108,6 +108,20 @@ class MainActivity : AppCompatActivity() {
             quizViewModel.count.postValue(value)
             quizViewModel.refreshGame()
             quizView?.reset()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        optionsPreference.unregisterOnSharedPreferenceChangeListener(listener)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!noOfOptions.equals(optionsPreference.getString("no_of_options", "four"))){
+            quizViewModel.refreshGame()
+            quizView?.reset()
+            recreate()
         }
     }
 }

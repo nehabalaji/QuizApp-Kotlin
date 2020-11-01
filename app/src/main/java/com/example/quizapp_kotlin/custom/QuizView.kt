@@ -10,11 +10,12 @@ import android.widget.TextView
 import com.example.quizapp_kotlin.data.Quiz
 import kotlin.random.Random
 
-class QuizView(context: Context, attributeSet: AttributeSet) : LinearLayout(context, attributeSet) {
+class QuizView(c: Context, attributeSet: AttributeSet) : LinearLayout(c, attributeSet) {
 
     private lateinit var options: RadioGroup
     private var correctOptionID: Int? = null
     private lateinit var optionsClickListener: OptionsClickListener
+    private lateinit var radioButtons: Array<RadioButton>
 
     init {
         initRadios()
@@ -39,7 +40,7 @@ class QuizView(context: Context, attributeSet: AttributeSet) : LinearLayout(cont
         val correctOption = random.nextInt(value)
         val correctState = quiz[correctOption]
 
-        val questionTV = TextView(context)
+        val questionTV: TextView = TextView(context)
         val question = "What is the capital of state ${correctState.stateName}"
 
         questionTV.text = question
@@ -50,12 +51,23 @@ class QuizView(context: Context, attributeSet: AttributeSet) : LinearLayout(cont
         this.addView(questionTV)
         this.addView(options)
 
-        val radioButtons = arrayListOf(
-            RadioButton(context),
-            RadioButton(context),
-            RadioButton(context),
-            RadioButton(context)
-        )
+        if(value==3){
+            radioButtons = arrayOf(
+                RadioButton(context),
+                RadioButton(context),
+                RadioButton(context)
+            )
+        }else if(value==4){
+             radioButtons = arrayOf(
+                RadioButton(context),
+                RadioButton(context),
+                RadioButton(context),
+                RadioButton(context)
+            )
+        }
+
+
+
 
         var i=0
         var j=0
@@ -76,8 +88,8 @@ class QuizView(context: Context, attributeSet: AttributeSet) : LinearLayout(cont
         }
     }
 
-    fun initListeners(){
-        options.setOnCheckedChangeListener { radioGroup, i ->
+   private fun initListeners(){
+        options.setOnCheckedChangeListener { _, i ->
             if (i==correctOptionID){
                 optionsClickListener.onClick(true)
             }else{
