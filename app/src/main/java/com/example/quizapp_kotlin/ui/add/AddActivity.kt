@@ -2,11 +2,12 @@ package com.example.quizapp_kotlin.ui.add
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.quizapp_kotlin.R
 import com.example.quizapp_kotlin.data.Quiz
-import kotlinx.android.synthetic.main.activity_add.*
 
 class AddActivity : AppCompatActivity() {
 
@@ -25,9 +26,9 @@ class AddActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
 
-        val stateET = state
-        val capitalET = capital
-        val button = button
+        val stateET = findViewById<EditText>(R.id.state)
+        val capitalET = findViewById<EditText>(R.id.capital)
+        val button = findViewById<Button>(R.id.button)
 
         addViewModel = ViewModelProvider(this).get(AddViewModel::class.java)
 

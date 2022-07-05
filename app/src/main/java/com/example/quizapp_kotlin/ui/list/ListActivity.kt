@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
@@ -15,9 +17,9 @@ import com.example.quizapp_kotlin.R
 import com.example.quizapp_kotlin.data.Quiz
 import com.example.quizapp_kotlin.database.QuizRepository
 import com.example.quizapp_kotlin.ui.add.AddActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_list.*
 
 class ListActivity : AppCompatActivity() {
 
@@ -35,7 +37,7 @@ class ListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
-        floatingActionButton.setOnClickListener {
+        findViewById<FloatingActionButton>(R.id.floatingActionButton).setOnClickListener {
             val intent = Intent(this, AddActivity::class.java)
             startActivityForResult(intent, NEW_STATE_REQUEST_CODE)
         }
@@ -48,7 +50,7 @@ class ListActivity : AppCompatActivity() {
             listViewModel.changeSortOrder(s)
         }
 
-        val recyclerView = recyclerView2
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView2)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         val listPagingAdapter = ListPagingAdapter()
@@ -68,7 +70,7 @@ class ListActivity : AppCompatActivity() {
                 }
             }
 
-        val constraintLayout = constraintLayout1
+        val constraintLayout = findViewById<ConstraintLayout>(R.id.constraintLayout1)
         val snackbar =
             Snackbar.make(constraintLayout, "State Deleted", BaseTransientBottomBar.LENGTH_LONG)
                 .setAction("UNDO") {
